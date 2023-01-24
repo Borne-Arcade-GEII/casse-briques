@@ -2,15 +2,13 @@
 // Created by Nathan on 20/01/2023.
 //
 #include "../headers/tableau.h"
+#include "../headers/brique.h"
+#include "../headers/main.h"
 #include <stdio.h>
 #include <stdbool.h>
 #include <stdlib.h>
 
-#define Longueur 10
-#define Hauteur 8
-
-unsigned char tableau[Longueur][Hauteur] = {0};
-
+brique briques[NbBriqueLongueur][NbBriqueHauteur] ;
 
 bool pasDeBriqueInvincibleACote(unsigned short i,unsigned short j){
     bool retour = true;
@@ -21,7 +19,7 @@ bool pasDeBriqueInvincibleACote(unsigned short i,unsigned short j){
     else{
         limiteIJ[0] = i;
     }
-    if(i<Longueur+1){
+    if(i < NbBriqueLongueur + 1){
         limiteIJ[1] = i+1;
     }
     else{
@@ -33,7 +31,7 @@ bool pasDeBriqueInvincibleACote(unsigned short i,unsigned short j){
     else{
         limiteIJ[2] = j;
     }
-    if(j<Hauteur+1){
+    if(j < NbBriqueHauteur + 1){
         limiteIJ[3] = j+1;
     }
     else{
@@ -41,7 +39,7 @@ bool pasDeBriqueInvincibleACote(unsigned short i,unsigned short j){
     }
     for(unsigned short i2= limiteIJ[0]; i2<limiteIJ[1];i2++){
         for(unsigned short j2 = limiteIJ[2];j2<limiteIJ[3];j2++){
-            if(tableau[i2][j2] == 3 && ( !((i2 == i) && (j2 == j)) ) ){
+            if(briques[i2][j2].id == 3 && ( !((i2 == i) && (j2 == j)) ) ){
                 retour = false;
             }
         }
@@ -50,15 +48,15 @@ bool pasDeBriqueInvincibleACote(unsigned short i,unsigned short j){
 }
 
 void genererTableau(){
-    for(unsigned short i = 0; i<Longueur; i++){
-        for(unsigned short  j = 0; j<Hauteur; j++) {
-            tableau[i][j] = 0;
+    for(unsigned short i = 0; i < NbBriqueLongueur; i++){
+        for(unsigned short  j = 0; j < NbBriqueHauteur; j++) {
+            briques[i][j].id = 0;
         }
     }
     unsigned short nbGenere;
     unsigned char id;
-    for(unsigned short i = 0; i<Longueur; i++){
-        for(unsigned short  j = 0; j<Hauteur; j++){
+    for(unsigned short i = 0; i < NbBriqueLongueur; i++){
+        for(unsigned short  j = 0; j < NbBriqueHauteur; j++){
             nbGenere = rand()%1000;
             if(nbGenere<750){
                 id = 1; // 75% de générer une brique normale
@@ -70,7 +68,7 @@ void genererTableau(){
                 id = 3; // +- 8% de générer une brique invincible
             }
             else if (nbGenere<980){
-                id = 1; // on génére une brique normale si on peut pas faire une invincible
+                id = 1; // on génère une brique normale si on peut pas faire une invincible
             }
             else if(nbGenere<990){
                 id = 5; // 1% de générer une brique explosive
@@ -81,7 +79,8 @@ void genererTableau(){
             else{
                 id = 7; // 0.7% de générer une brique faveur
             }
-            tableau[i][j] = id;
+            briques[i][j].id = id;
+            donnerCoords(&briques[i][j],i, j);
         }
     }
 
@@ -89,9 +88,9 @@ void genererTableau(){
 
 
 void afficheTab(){
-    for (int j = 0; j < Hauteur; j++) {
-        for (int i = 0; i < Longueur; i++) {
-            printf("%hu",tableau[i][j]);
+    for (int j = 0; j < NbBriqueHauteur; j++) {
+        for (int i = 0; i < NbBriqueLongueur; i++) {
+            printf("%hu",briques[i][j].id);
         }
         printf("\n");
     }

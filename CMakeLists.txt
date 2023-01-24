@@ -4,7 +4,7 @@ project (casse-briques C)
 
 aux_source_directory(src SRC_LIST)
 aux_source_directory(headers SRC_LIST)
-add_executable(casse-briques ${SRC_LIST} src/tableau.c headers/tableau.h)
+add_executable(casse-briques ${SRC_LIST} src/tableau.c headers/tableau.h headers/balle.h src/balle.c)
 INCLUDE(FindPkgConfig)
 pkg_check_modules(FREETYPE2 REQUIRED freetype2)
 pkg_check_modules(HARFBUZZ REQUIRED harfbuzz)

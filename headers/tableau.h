@@ -3,10 +3,13 @@
 //
 
 #include <stdbool.h>
+#include "main.h"
 
 #ifndef CASSE_BRIQUES_TABLEAU_H
 #define CASSE_BRIQUES_TABLEAU_H
 
+
+extern brique briques[NbBriqueLongueur][NbBriqueHauteur] ;
 
 void genererTableau(); // utilisé pour générer un tableau / un niveau
 void afficheTab(); // pour afficher le tableau à des fins de test
