@@ -13,5 +13,6 @@ struct brique {
 };
 typedef struct brique brique;
 void donnerCoords(brique *brique, unsigned short posx, unsigned short posy);// remplit les coordonnées xy de la brique
+void casseLaBrique(brique *brique, int i, int j);
 //en fonction de la position de la brique dans le tableau
 #endif //CASSE_BRIQUES_BRIQUE_H

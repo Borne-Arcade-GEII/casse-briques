@@ -3,3 +3,7 @@
 //
 
 #include "../headers/powerups.h"
+powerup generePowerup(char type){
+    powerup tbd;
+    return tbd;
+}

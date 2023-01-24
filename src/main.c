@@ -16,7 +16,10 @@
 
 #include <SDL2/SDL.h>
 
+#define VITESSE_BOULE 0.2
+
 unsigned short ScrWidth = 0 , ScrHeight = 0;
+bool inverse_commande = false;
 
 int main(int argc, char *argv[]) {
     srand((unsigned long) time(0));
@@ -35,16 +38,17 @@ int main(int argc, char *argv[]) {
                               ScrWidth, ScrHeight,
                               SDL_WINDOW_ALLOW_HIGHDPI);
     InitBarre();
-    balle1.posx = ScrWidth/2;
-    balle1.posy = ScrHeight/2;
+    double angle = rand()%60 + 60;
+    angle = angleDegreVersRadian(angle);
+    initBalle(&balle1, barre1.posCentre,barre1.positionyBarre-barre1.Hauteur-0.01 * ScrHeight, VITESSE_BOULE, angle);
+
     renderer = SDL_CreateRenderer(window, -1, 0);
 
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
     SDL_RenderClear(renderer);
     SDL_RenderPresent(renderer);
 
-    genererTableau();
-    afficheTab();
+
 
     SDL_Event event;
     // boucle d'initialisation de la partie : menu start
@@ -56,25 +60,29 @@ int main(int argc, char *argv[]) {
         }
     }
 
-    SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
-    SDL_RenderClear(renderer);
-    SDL_RenderPresent(renderer);
+    genererTableau();
+    affichage(renderer);
 
     //boucle de jeu : tant qu'on n'a pas de game over
     while (event.type != SDL_QUIT) { // remplacer cette condition par game over() == 0 && event.type != SDL_QUIT plus tard
-        SDL_Delay(0.1);
         SDL_PollEvent(&event);
         const Uint8 *state = SDL_GetKeyboardState(NULL);
-        if (state[SDL_SCANCODE_A]) {
+        if ((state[SDL_SCANCODE_A] && !inverse_commande) || (state[SDL_SCANCODE_D] && inverse_commande)  ) {
             if(deplacement('G')){
-                affichage(renderer);
             }
-        } else if (state[SDL_SCANCODE_D]) {
+        } else if ((state[SDL_SCANCODE_D] && !inverse_commande) || (state[SDL_SCANCODE_A] && inverse_commande)) {
             if(deplacement('D')){
-                affichage(renderer);
+            }
+        }
+        else if(state[SDL_SCANCODE_SPACE]){
+            balle1.freeze = false;
+            if(barre1.magnetique == 1){
+                barre1.magnetique = 0;
             }
         }
 
+        updateBalle(&balle1);
+        affichage(renderer);
     }
 
     SDL_DestroyWindow(window);
@@ -127,7 +135,7 @@ void affichage(SDL_Renderer *renderer) {
 
         }
     }
-    // on génère la barre mtn, on prend que la taille standard pour l'instant faudra faire un switch pour plus tard
+    // on génère la barre mtn, on prend que la taille standard pour l'instant il faudra faire un switch pour plus tard
     SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
     SDL_Rect rect;
     rect.x = barre1.posCentre - barre1.Longueur;
@@ -136,5 +144,14 @@ void affichage(SDL_Renderer *renderer) {
     rect.h = 2 * barre1.Hauteur ;
     SDL_RenderFillRect(renderer, &rect);
     // on génère la balle mtn
+    for (int w = 0; w < balle1.rayon * 2; w++) {
+        for (int h = 0; h < balle1.rayon * 2; h++) {
+            int dx = balle1.rayon - w; // horizontal offset
+            int dy = balle1.rayon - h; // vertical offset
+            if ((dx * dx + dy * dy) <= (balle1.rayon * balle1.rayon)) {
+                SDL_RenderDrawPoint(renderer, balle1.posx + dx, balle1.posy + dy);
+            }
+        }
+    }
     SDL_RenderPresent(renderer);
 }

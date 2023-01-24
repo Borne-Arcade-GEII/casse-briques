@@ -4,24 +4,30 @@
 
 #include "../headers/barre.h"
 #include "../headers/main.h"
-
-barre barre1 = {0, 0,0,0,false,false};
+#define VITESSE_BARRE 0.4
+barre barre1 = {0, 0,0,0,true,false};
 
 void InitBarre(){
     barre1.posCentre =  ScrWidth/2;
     barre1.Longueur=  ScrWidth/14;
     barre1.Hauteur =  (0.01 * ScrHeight);
-    barre1.positionyBarre =  0.9 *ScrHeight ;
+    barre1.positionyBarre =  0.94 *ScrHeight ;
 }
 
 bool deplacement(char direction) {
     bool retour = false;
     if (direction == 'G' && barre1.posCentre>barre1.Longueur) { // déplacement gauche
-        barre1.posCentre--;
+        barre1.posCentre -= VITESSE_BARRE;
+        if(barre1.magnetique>0){
+            balle1.posx -=VITESSE_BARRE;
+        }
         retour = true ;
     }
     if ((direction == 'D') && (barre1.posCentre<ScrWidth- barre1.Longueur) ) { // déplacement droite
-        barre1.posCentre++;
+        barre1.posCentre += VITESSE_BARRE;
+        if(barre1.magnetique>0){
+            balle1.posx +=VITESSE_BARRE;
+        }
         retour = true ;
     }
     return retour;

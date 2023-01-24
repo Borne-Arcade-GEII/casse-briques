@@ -11,7 +11,16 @@
 
 extern brique briques[NbBriqueLongueur][NbBriqueHauteur] ;
 
+struct limites{
+    signed short limA;
+    signed short limB;
+    signed short limC;
+    signed short limD;
+};
+typedef struct limites limites;
+
 void genererTableau(); // utilisé pour générer un tableau / un niveau
-void afficheTab(); // pour afficher le tableau à des fins de test
-bool pasDeBriqueInvincibleACote(unsigned short i,unsigned short j); // pour savoir si y'a pas de brique invincible à coté
+bool pasDeBriqueInvincibleACote(unsigned short i,unsigned short j); // pour savoir s'il n'y a pas de brique invincible à coté
+void explosionBrique(unsigned short i,unsigned short j); // faire péter les briques à coté ! ! !
+
 #endif //CASSE_BRIQUES_TABLEAU_H

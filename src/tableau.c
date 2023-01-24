@@ -10,41 +10,57 @@
 
 brique briques[NbBriqueLongueur][NbBriqueHauteur] ;
 
-bool pasDeBriqueInvincibleACote(unsigned short i,unsigned short j){
-    bool retour = true;
-    unsigned short limiteIJ[4];
+limites defLimites(int i, int j){
+    limites retour;
     if(i>0){
-        limiteIJ[0] = i-1;
+        retour.limA = i-1;
     }
     else{
-        limiteIJ[0] = i;
+        retour.limA  = i;
     }
     if(i < NbBriqueLongueur + 1){
-        limiteIJ[1] = i+1;
+        retour.limB  = i+1;
     }
     else{
-        limiteIJ[1] = i;
+        retour.limB  = i;
     }
     if(j>0){
-        limiteIJ[2] = j-1;
+        retour.limC = j-1;
     }
     else{
-        limiteIJ[2] = j;
+        retour.limC = j;
     }
     if(j < NbBriqueHauteur + 1){
-        limiteIJ[3] = j+1;
+        retour.limD = j+1;
     }
     else{
-        limiteIJ[3] = j;
+        retour.limD = j;
     }
-    for(unsigned short i2= limiteIJ[0]; i2<limiteIJ[1];i2++){
-        for(unsigned short j2 = limiteIJ[2];j2<limiteIJ[3];j2++){
+    return retour;
+}
+
+bool pasDeBriqueInvincibleACote(unsigned short i,unsigned short j){
+    bool retour = true;
+    limites limiteIJ = defLimites(i,j);
+    for(unsigned short i2= limiteIJ.limA; i2<limiteIJ.limB;i2++){
+        for(unsigned short j2 = limiteIJ.limC;j2<limiteIJ.limD;j2++){
             if(briques[i2][j2].id == 3 && ( !((i2 == i) && (j2 == j)) ) ){
                 retour = false;
             }
         }
     }
     return retour;
+}
+
+void explosionBrique(unsigned short i,unsigned short j){
+    limites limiteIJ = defLimites(i,j);
+    for(unsigned short i2= limiteIJ.limA; i2<limiteIJ.limB;i2++){
+        for(unsigned short j2 = limiteIJ.limC;j2<limiteIJ.limD;j2++){
+            if(briques[i2][j2].id != 3){
+                casseLaBrique(&briques[i2][j2],i2,j2);
+            }
+        }
+    }
 }
 
 void genererTableau(){
@@ -84,17 +100,6 @@ void genererTableau(){
         }
     }
 
-}
-
-
-void afficheTab(){
-    for (int j = 0; j < NbBriqueHauteur; j++) {
-        for (int i = 0; i < NbBriqueLongueur; i++) {
-            printf("%hu",briques[i][j].id);
-        }
-        printf("\n");
-    }
-    printf("\n\n");
 }
 
 

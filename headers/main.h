@@ -13,5 +13,6 @@
 #include "balle.h"
 
 extern unsigned short ScrWidth, ScrHeight;
+extern bool inverse_commande;
 void affichage(SDL_Renderer *renderer);
 #endif //CASSE_BRIQUES_MAIN_H
