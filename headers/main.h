@@ -15,4 +15,5 @@
 extern unsigned short ScrWidth, ScrHeight;
 extern bool inverse_commande;
 void affichage(SDL_Renderer *renderer);
+void resetNiveau();
 #endif //CASSE_BRIQUES_MAIN_H

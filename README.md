@@ -38,16 +38,20 @@ Vies :
 
 Powerups :
 -
-* Agrandir la taille de la barre / Rétrécir la taille de la barre
-* Barre magnétique : on garde la balle et on appuie pour la relancer
-* Boule bonus : ajoute une deuxième boule en parallèle
-* Balles rapides : augmente la vitesse de la balle
-* Balles explosives : la balle explose lorsqu'elle touche une brique,
-ce qui fait un effet de zone
-* Inversion des controles
-* Multiplicateur de points : pendant 30 secondes on gagne le double de pts
-* Vie bonus (rare)
 
+Malus :
+* 1 - Rétrécir la taille de la barre pendant 15 sec
+* 2 - Inversion des contrôles pendant 15 secondes
+* 3 - Perte de points
+* 4 - Balle rapide : augmente la vitesse de la balle pendant 15 sec
+
+Bonus :
+* 5 - Agrandir la taille de la barre pendant 30 sec
+* 6 - Barre magnétique : on garde la balle et on appuie pour la relancer
+* 7 - Balles explosives : la balle explose lorsqu'elle touche une brique,
+  ce qui fait un effet de zone
+* 8 - Multiplicateur de points : pendant 30 secondes nous gagnons le double de pts
+* 9 - Vie bonus (rare)
 Score :
 -
 

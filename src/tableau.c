@@ -102,4 +102,17 @@ void genererTableau(){
 
 }
 
+bool tableauFini(){
+    bool retour = true;
+    for(unsigned short i = 0; i < NbBriqueLongueur; i++){
+        for(unsigned short  j = 0; j < NbBriqueHauteur; j++){
+            if(briques[i][j].id == 0 || briques[i][j].id == 3){
+            }else{
+                retour = false;
+            }
+        }
+        }
+    return retour;
+}
+
 

@@ -1,9 +1,3 @@
 //
-// Created by Nathan on 23/01/2023.
+// Created by Nathan on 24/01/2023.
 //
-
-#include "../headers/powerups.h"
-powerup generePowerup(char type){
-    powerup tbd;
-    return tbd;
-}

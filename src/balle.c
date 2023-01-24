@@ -71,7 +71,7 @@ void gereCollisionBrique(balle *b){
         for (int j = 0; j < NbBriqueHauteur; j++) {
             if (b->posx + b->rayon > briques[i][j].x_coin_hautGauche && b->posx - b->rayon < briques[i][j].x_coin_basDroite) {
                 if (b->posy + b->rayon > briques[i][j].y_coin_hautGauche && b->posy - b->rayon < briques[i][j].y_coin_basDroite) {
-                    if(briques[i][j].id != 0) {
+                    if(briques[i][j].id > 0) {
                         if ((b->posx < briques[i][j].x_coin_hautGauche + b->rayon) ||
                         (b->posx >briques[i][j].x_coin_basDroite -b->rayon)) {// si on touche la brique sur le côté quoi
                             b->vitessex = -b->vitessex;

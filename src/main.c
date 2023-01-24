@@ -5,7 +5,6 @@
 #include "../headers/barre.h"
 #include "../headers/balle.h"
 #include "../headers/brique.h"
-#include "../headers/powerups.h"
 #include "../headers/score.h"
 #include "../headers/vies.h"
 #include "../headers/tableau.h"
@@ -37,18 +36,11 @@ int main(int argc, char *argv[]) {
                               SDL_WINDOWPOS_UNDEFINED,
                               ScrWidth, ScrHeight,
                               SDL_WINDOW_ALLOW_HIGHDPI);
-    InitBarre();
-    double angle = rand()%60 + 60;
-    angle = angleDegreVersRadian(angle);
-    initBalle(&balle1, barre1.posCentre,barre1.positionyBarre-barre1.Hauteur-0.01 * ScrHeight, VITESSE_BOULE, angle);
 
     renderer = SDL_CreateRenderer(window, -1, 0);
-
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
     SDL_RenderClear(renderer);
     SDL_RenderPresent(renderer);
-
-
 
     SDL_Event event;
     // boucle d'initialisation de la partie : menu start
@@ -60,7 +52,8 @@ int main(int argc, char *argv[]) {
         }
     }
 
-    genererTableau();
+    InitBarre();
+    resetNiveau();
     affichage(renderer);
 
     //boucle de jeu : tant qu'on n'a pas de game over
@@ -82,6 +75,7 @@ int main(int argc, char *argv[]) {
         }
 
         updateBalle(&balle1);
+        updatePowerup();
         affichage(renderer);
     }
 
@@ -120,7 +114,7 @@ void affichage(SDL_Renderer *renderer) {
                     SDL_SetRenderDrawColor(renderer, 238, 130, 238, 0);
                     break;
                 case 7 :
-                    SDL_SetRenderDrawColor(renderer, 255, 255, 0, 0);
+                    SDL_SetRenderDrawColor(renderer, 255, 184, 28, 0);
                     break;
                 default :
                     SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
@@ -133,6 +127,20 @@ void affichage(SDL_Renderer *renderer) {
             rect.h = briques[i][j].y_coin_basDroite - rect.y;
             SDL_RenderFillRect(renderer, &rect);
 
+            // on génére les powerups s'il y en a
+            if(briques[i][j].pw_up > 0){
+                if(briques[i][j].pw_up > 4){
+                    SDL_SetRenderDrawColor(renderer, 255, 184, 28, 0);
+                }
+                else{
+                    SDL_SetRenderDrawColor(renderer, 187, 0, 0, 0);
+                }
+                rect.x = briques[i][j].pwup_posx- TAILLEPWUP;
+                rect.y = briques[i][j].pwup_posy- TAILLEPWUP;;
+                rect.w = 2 * TAILLEPWUP;
+                rect.h = 2 * TAILLEPWUP;
+                SDL_RenderFillRect(renderer, &rect);
+            }
         }
     }
     // on génère la barre mtn, on prend que la taille standard pour l'instant il faudra faire un switch pour plus tard
@@ -153,5 +161,15 @@ void affichage(SDL_Renderer *renderer) {
             }
         }
     }
+
     SDL_RenderPresent(renderer);
+}
+
+void resetNiveau(){
+    double angle = rand()%60 + 60;
+    angle = angleDegreVersRadian(angle);
+    initBalle(&balle1, barre1.posCentre,barre1.positionyBarre-barre1.Hauteur-0.01 * ScrHeight, VITESSE_BOULE, angle);
+    genererTableau();
+    balle1.freeze = true;
+    barre1.magnetique = true;
 }
