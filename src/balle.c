@@ -4,6 +4,7 @@
 #include "../headers/balle.h"
 #include "../headers/main.h"
 #include "../headers/tableau.h"
+#include "../headers/vies.h"
 
 balle balle1 = {0,0,0,0,0,0,0,true,false};
 
@@ -43,8 +44,14 @@ void gereCollisionBord(balle *b){
     if (b->posx < b->rayon || (b->posx > ScrWidth - b->rayon)) {
         b->vitessex = -b->vitessex;
     }
-    if (b->posy < b->rayon || (b->posy > ScrHeight - b->rayon) ) {
+    if (b->posy < b->rayon){
         b->vitessey = -b->vitessey;
+    }
+    if(b->posy > ScrHeight - b->rayon){
+        if(vies>0) {
+            vies--;
+            reset(false);
+        }
     }
 }
 

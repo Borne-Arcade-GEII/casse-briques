@@ -2,3 +2,7 @@ J'ai eu une partie avec une brique quasi inatteigable, dans le coin en haut à d
 à coté (possible mais chiant)
 
 supprimer le fichier powerups .c sans que ca empeche la compilation (frustrant de fou)
+
+les collisions des briques sont pas ouf
+les explosifs déconnent un peu:
+faire la balle explosive aussi
