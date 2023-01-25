@@ -24,7 +24,7 @@ void CheckTimer(){
 void activerPwUp(brique *brique1){
     switch(brique1->pw_up){
         case 1 ://rétrecir taille barre
-            barre1.Longueur = ScrWidth/28;
+            barre1.Longueur = ScrWidth/25;
             break;
         case 2 : // inversion des controles
             inverse_commande = true;
@@ -33,11 +33,11 @@ void activerPwUp(brique *brique1){
             ajoutScore(-PT_SCORE*100);
             break;
         case 4 :// balle rapide
-            balle1.vitesse = VITESSE_BOULE * 2;
+            balle1.vitesse = VITESSE_BOULE * 1.5;
             calculVitesseRect(&balle1);
             break;
         case 5 ://agrandir barre
-            barre1.Longueur = ScrWidth/7;
+            barre1.Longueur = ScrWidth/10;
             break;
         case 6 :
             barre1.magnetique = 2;
@@ -58,7 +58,6 @@ void activerPwUp(brique *brique1){
     if(brique1->pw_up != 9 && brique1->pw_up != 3){
         timer[brique1->pw_up] = SDL_GetTicks64();
     }
-    printf("Powerup %hu DESACTIVE, %lu\n", brique1->pw_up, timer[brique1->pw_up]);
     ajoutScore(PT_SCORE*10);
 }
 
@@ -87,6 +86,5 @@ void desactiverPWUP(unsigned short i){
         default:
             break;
     }
-    printf("Powerup %hu DESACTIVE, %lu\n", i, timer[i]);
     timer[i] = 0;
 }

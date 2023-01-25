@@ -175,5 +175,5 @@ void resetNiveau(){
     initBalle(&balle1, barre1.posCentre,barre1.positionyBarre-barre1.Hauteur-0.01 * ScrHeight, VITESSE_BOULE, angle);
     genererTableau();
     balle1.freeze = true;
-    barre1.magnetique = true;
+    barre1.magnetique = 1;
 }

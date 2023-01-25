@@ -54,13 +54,12 @@ void gereCollisionBarre(balle *b){
         if(b->posy > barre1.positionyBarre - barre1.Hauteur && b-> posy < barre1.positionyBarre + barre1.Hauteur ) {
             if(barre1.magnetique >0){
                 b->freeze = true;
-            } else {
-                float calc_inter = (b->posx - barre1.posCentre + barre1.Longueur);
-                float angle = (-calc_inter / (2 * barre1.Longueur)) * (90) +
-                              140;// on génère un angle entre 40 et 140 degrés en fonction de la position de la balle sur la barre
-                b->angle = angleDegreVersRadian(angle);
-                calculVitesseRect(b);
             }
+            float calc_inter = (b->posx - barre1.posCentre + barre1.Longueur);
+            float angle = (-calc_inter / (2 * barre1.Longueur)) * (90) +140;
+            // on génère un angle entre 40 et 140 degrés en fonction de la position de la balle sur la barre
+            b->angle = angleDegreVersRadian(angle);
+            calculVitesseRect(b);
         }
     }
 }

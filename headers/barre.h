@@ -13,7 +13,6 @@ struct barre {
     unsigned short Hauteur;
     unsigned short positionyBarre;
     unsigned short magnetique; // 1 si magnétique temp : début de partie; 2 si magnétique grâce au power up qui persiste
-    bool controle_inverse;
 };
 typedef struct barre barre;
 extern barre barre1;
