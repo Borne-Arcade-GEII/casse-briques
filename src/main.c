@@ -25,6 +25,7 @@
 unsigned short ScrWidth = 0 , ScrHeight = 0;
 unsigned short niveau = 0;
 bool inverse_commande = false;
+bool rejouer = true;
 SDL_Color blanc = {255, 255, 255}; // Blanc
 
 int main(int argc, char *argv[]) {
@@ -52,6 +53,7 @@ int main(int argc, char *argv[]) {
     affichageTitrePlaceHolder(renderer,police);
 
     SDL_Event event;
+
     // boucle d'initialisation de la partie : menu start
     while (1) {
         if (SDL_PollEvent(&event)) {
@@ -60,43 +62,53 @@ int main(int argc, char *argv[]) {
             }
         }
     }
-
-    InitBarre();
-    reset(true);
-    affichage(renderer, police);
-
-    //boucle de jeu : tant qu'on n'a pas de game over
-    while (event.type != SDL_QUIT && vies>0) { // remplacer cette condition par game over() == 0 && event.type != SDL_QUIT plus tard
-        SDL_PollEvent(&event);
-        const Uint8 *state = SDL_GetKeyboardState(NULL);
-        if ((state[SDL_SCANCODE_A] && !inverse_commande) || (state[SDL_SCANCODE_D] && inverse_commande)) {
-            if (deplacement('G')) {
-            }
-        }
-        if ((state[SDL_SCANCODE_D] && !inverse_commande) || (state[SDL_SCANCODE_A] && inverse_commande)) {
-            if (deplacement('D')) {
-            }
-        }
-        if (state[SDL_SCANCODE_SPACE]) {
-            balle1.freeze = false;
-            if (barre1.magnetique == 1) {
-                barre1.magnetique = 0;
-            }
-        }
-
-        updateBalle(&balle1);
-        updatePowerup();
-        CheckTimer();
+    while(rejouer) {
+        InitBarre();
+        score = 0;
+        vies = 3;
+        niveau = 0;
+        reset(true);
         affichage(renderer, police);
-    }
-    // écran final
-    affichageEcranFinal(renderer);
-    SDL_Delay(5000);
-    while (1) {
-        if (SDL_PollEvent(&event)) {
-            if (event.type == SDL_KEYDOWN || event.type == SDL_QUIT) {
-                break;
+
+        //boucle de jeu : tant qu'on n'a pas de game over
+        while (event.type != SDL_QUIT &&
+               vies > 0) { // remplacer cette condition par game over() == 0 && event.type != SDL_QUIT plus tard
+            SDL_PollEvent(&event);
+            const Uint8 *state = SDL_GetKeyboardState(NULL);
+            if ((state[SDL_SCANCODE_A] && !inverse_commande) || (state[SDL_SCANCODE_D] && inverse_commande)) {
+                if (deplacement('G')) {
+                }
             }
+            if ((state[SDL_SCANCODE_D] && !inverse_commande) || (state[SDL_SCANCODE_A] && inverse_commande)) {
+                if (deplacement('D')) {
+                }
+            }
+            if (state[SDL_SCANCODE_SPACE]) {
+                balle1.freeze = false;
+                if (barre1.magnetique == 1) {
+                    barre1.magnetique = 0;
+                }
+            }
+
+            updateBalle(&balle1);
+            updatePowerup();
+            CheckTimer();
+            affichage(renderer, police);
+        }
+        // écran final
+        affichageEcranFinal(renderer);
+        if (event.type != SDL_QUIT) {
+            SDL_Delay(5000);
+        }
+        while (event.type != SDL_QUIT) {
+            if (SDL_PollEvent(&event)) {
+                if (event.type == SDL_KEYDOWN || event.type == SDL_QUIT){
+                    break;
+                }
+            }
+        }
+        if (event.type == SDL_QUIT){
+            rejouer = false;
         }
     }
     SDL_DestroyWindow(window);

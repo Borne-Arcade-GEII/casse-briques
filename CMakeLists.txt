@@ -2,6 +2,8 @@ cmake_minimum_required (VERSION 2.9)
 project (casse-briques C)
 # The version number.
 
+set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -static-libstdc++ -static-libgcc")
+
 aux_source_directory(src SRC_LIST)
 aux_source_directory(headers SRC_LIST)
 add_executable(casse-briques ${SRC_LIST})
