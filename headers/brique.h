@@ -4,6 +4,9 @@
 
 #ifndef CASSE_BRIQUES_BRIQUE_H
 #define CASSE_BRIQUES_BRIQUE_H
+
+#include <stdbool.h>
+
 #define TAILLEPWUP 10
 #define VITESSE_CHUTE_PWP 0.05
 
@@ -16,7 +19,7 @@ struct brique {
     unsigned char pw_up ; // les ID de powerup vont de 1 à 9 : 1.2.3.4 = malus 5.6.7.8.9 = bonus
     float pwup_posx;
     float pwup_posy;
-    float pwup_vitesse_chute; //vitesse de chute
+    bool collision;//renvoie 1 si on vient de la toucher
 };
 
 typedef struct brique brique;

@@ -23,5 +23,6 @@ void genererTableau(); // utilisé pour générer un tableau / un niveau
 bool pasDeBriqueInvincibleACote(unsigned short i,unsigned short j); // pour savoir s'il n'y a pas de brique invincible à coté
 void explosionBrique(unsigned short i,unsigned short j); // faire péter les briques à coté ! ! !
 bool tableauFini(); //renvoie true si tout est cassé
+void reinitCollision(unsigned short i, unsigned short j);//reinit les collisions des briques sauf celles aux coords i, j
 
 #endif //CASSE_BRIQUES_TABLEAU_H

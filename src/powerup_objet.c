@@ -31,7 +31,6 @@ void generePowerup(brique *brique , char type){
     }
     brique->pwup_posx = (brique->x_coin_basDroite + brique->x_coin_hautGauche)/2;
     brique->pwup_posy = (brique->y_coin_basDroite + brique->y_coin_hautGauche)/2;
-    brique->pwup_vitesse_chute = VITESSE_CHUTE_PWP;
 }
 
 void updatePowerup(){

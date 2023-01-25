@@ -115,4 +115,13 @@ bool tableauFini(){
     return retour;
 }
 
+void reinitCollision(unsigned short i, unsigned short j){
+    for(unsigned short i2 = 0; i2 < NbBriqueLongueur; i2++){
+        for(unsigned short  j2 = 0; j2 < NbBriqueHauteur; j2++) {
+            if(!(i == i2 && j == j2)){
+                briques[i2][j2].collision = false;
+            }
+        }
+    }
+}
 

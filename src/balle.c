@@ -43,9 +43,11 @@ float angleDegreVersRadian(float angleDegre){
 void gereCollisionBord(balle *b){
     if (b->posx < b->rayon || (b->posx > ScrWidth - b->rayon)) {
         b->vitessex = -b->vitessex;
+        reinitCollision(NbBriqueLongueur+1,NbBriqueHauteur+1);
     }
     if (b->posy < b->rayon){
         b->vitessey = -b->vitessey;
+        reinitCollision(NbBriqueLongueur+1,NbBriqueHauteur+1);
     }
     if(b->posy > ScrHeight - b->rayon){
         if(vies>0) {
@@ -67,6 +69,7 @@ void gereCollisionBarre(balle *b){
             // on génère un angle entre 40 et 140 degrés en fonction de la position de la balle sur la barre
             b->angle = angleDegreVersRadian(angle);
             calculVitesseRect(b);
+            reinitCollision(NbBriqueLongueur+1,NbBriqueHauteur+1);
         }
     }
 }
@@ -77,13 +80,18 @@ void gereCollisionBrique(balle *b){
         for (int j = 0; j < NbBriqueHauteur; j++) {
             if (b->posx + b->rayon > briques[i][j].x_coin_hautGauche && b->posx - b->rayon < briques[i][j].x_coin_basDroite) {
                 if (b->posy + b->rayon > briques[i][j].y_coin_hautGauche && b->posy - b->rayon < briques[i][j].y_coin_basDroite) {
-                    if(briques[i][j].id > 0) {
+                    if(briques[i][j].id > 0 && !briques[i][j].collision) {
+
+
+
                         if ((b->posx < briques[i][j].x_coin_hautGauche + b->rayon) ||
                         (b->posx >briques[i][j].x_coin_basDroite -b->rayon)) {// si on touche la brique sur le côté quoi
                             b->vitessex = -b->vitessex;
-                        } else {
+                        }else{
                             b->vitessey = -b->vitessey;
                         }
+                        briques[i][j].collision = true;
+                        reinitCollision(i,j);
                         casseLaBrique(&briques[i][j],i,j);
                     }
                 }
