@@ -67,6 +67,7 @@ void genererTableau(){
     for(unsigned short i = 0; i < NbBriqueLongueur; i++){
         for(unsigned short  j = 0; j < NbBriqueHauteur; j++) {
             briques[i][j].id = 0;
+            briques[i][j].pw_up = 0;
         }
     }
     unsigned short nbGenere;
