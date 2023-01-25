@@ -22,10 +22,5 @@ struct brique {
 typedef struct brique brique;
 void donnerCoords(brique *brique, unsigned short posx, unsigned short posy);// remplit les coordonnées xy de la brique
 void casseLaBrique(brique *brique, int i, int j);
-void generePowerup(brique *brique , char type);//génere un powerup parmi 2 types : '?' = malus et bonus; '+' = bonus seulement
-void updatePowerup();
-void gereCollisionPwBord(brique *brique1);
-void gereCollisionPwBarre(brique *brique1);
-void activerPwUp(brique *brique1);
 //en fonction de la position de la brique dans le tableau
 #endif //CASSE_BRIQUES_BRIQUE_H

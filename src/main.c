@@ -8,6 +8,8 @@
 #include "../headers/score.h"
 #include "../headers/vies.h"
 #include "../headers/tableau.h"
+#include "../headers/powerup_objet.h"
+#include "../headers/powerup_pouvoir.h"
 
 
 #include <time.h>
@@ -15,7 +17,7 @@
 
 #include <SDL2/SDL.h>
 
-#define VITESSE_BOULE 0.2
+
 
 unsigned short ScrWidth = 0 , ScrHeight = 0;
 bool inverse_commande = false;
@@ -60,37 +62,39 @@ int main(int argc, char *argv[]) {
     while (event.type != SDL_QUIT) { // remplacer cette condition par game over() == 0 && event.type != SDL_QUIT plus tard
         SDL_PollEvent(&event);
         const Uint8 *state = SDL_GetKeyboardState(NULL);
-        if ((state[SDL_SCANCODE_A] && !inverse_commande) || (state[SDL_SCANCODE_D] && inverse_commande)  ) {
-            if(deplacement('G')){
-            }
-        } else if ((state[SDL_SCANCODE_D] && !inverse_commande) || (state[SDL_SCANCODE_A] && inverse_commande)) {
-            if(deplacement('D')){
+        if ((state[SDL_SCANCODE_A] && !inverse_commande) || (state[SDL_SCANCODE_D] && inverse_commande)) {
+            if (deplacement('G')) {
             }
         }
-        else if(state[SDL_SCANCODE_SPACE]){
+        if ((state[SDL_SCANCODE_D] && !inverse_commande) || (state[SDL_SCANCODE_A] && inverse_commande)) {
+            if (deplacement('D')) {
+            }
+        }
+        if (state[SDL_SCANCODE_SPACE]) {
             balle1.freeze = false;
-            if(barre1.magnetique == 1){
+            if (barre1.magnetique == 1) {
                 barre1.magnetique = 0;
             }
         }
 
         updateBalle(&balle1);
         updatePowerup();
+        CheckTimer();
         affichage(renderer);
     }
 
     SDL_DestroyWindow(window);
     SDL_Quit();
     return 0;
-
 }
+
 
 void affichage(SDL_Renderer *renderer) {
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
     SDL_RenderClear(renderer);
     //affichage des briques
     for (int i =0; i<NbBriqueLongueur ; i++) {
-        for (int j = 0; j < NbBriqueHauteur; j++) {
+        for (int j = NbBriqueHauteur-1 ; j >=0 ; j--) { // on affiche à l'envers ici pour bien afficher les pwups
             switch (briques[i][j].id) {
                 case 0 :
                     SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);

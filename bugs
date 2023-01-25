@@ -2,4 +2,6 @@ J'ai eu une partie avec une brique quasi inatteigable, dans le coin en haut à d
 à coté (possible mais chiant)
 Corriger l'inversion, mettre un tps limite (timer)
 
-supprimer le fichier powerups .c
+supprimer le fichier powerups .c sans que ca empeche la compilation (frustrant de fou)
+
+Gérer le bug des textures qui se chevauchent pour le powerup

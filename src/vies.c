@@ -3,3 +3,5 @@
 //
 
 #include "../headers/vies.h"
+
+char vies = 3;

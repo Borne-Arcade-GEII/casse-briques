@@ -16,6 +16,7 @@ struct balle {
     double vitessey;
     signed short rayon;
     bool freeze;
+    bool explosive;
 };
 typedef struct balle balle;
 extern balle balle1;

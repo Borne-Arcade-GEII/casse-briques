@@ -7,6 +7,8 @@
 
 #define NbBriqueLongueur 12 //  nombre de briques en longueur
 #define NbBriqueHauteur 9 // nombre de briques en hauteur
+#define VITESSE_BOULE 0.2
+
 #include <SDL2/SDL.h>
 #include "barre.h"
 #include "brique.h"

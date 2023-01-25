@@ -5,7 +5,7 @@
 #include "../headers/main.h"
 #include "../headers/tableau.h"
 
-balle balle1 = {0,0,0,0,0,0,0,true};
+balle balle1 = {0,0,0,0,0,0,0,true,false};
 
 // Initialise la position et la vitesse de la balle
 void initBalle(balle *b, int x, int y,  float vitesse, float angle) {
