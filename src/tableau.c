@@ -75,26 +75,30 @@ void genererTableau(){
     for(unsigned short i = 0; i < NbBriqueLongueur; i++){
         for(unsigned short  j = 0; j < NbBriqueHauteur; j++){
             nbGenere = rand()%1000;
-            if(nbGenere<750){
-                id = 1; // 75% de générer une brique normale
+            if(nbGenere<700){
+                id = 1; // 70% de générer une brique normale
             }
-            else if(nbGenere<900){
+            else if(nbGenere<850){
                 id = 2; // 15% de générer une brique double
             }
-            else if(nbGenere<980 && pasDeBriqueInvincibleACote(i,j)){
+            else if(nbGenere<930 && pasDeBriqueInvincibleACote(i,j)){
                 id = 3; // +- 8% de générer une brique invincible
             }
-            else if (nbGenere<980){
+            else if (nbGenere<930){
                 id = 1; // on génère une brique normale si on peut pas faire une invincible
             }
-            else if(nbGenere<990){
-                id = 5; // 1% de générer une brique explosive
+
+            else if(nbGenere<960){
+                id = 4; // 3% de générer une brique à bonus
             }
-            else if(nbGenere<993){
-                id = 6; // 0.3% de générer une brique toxique
+            else if(nbGenere<980){
+                id = 5; // 3% de générer une brique explosive
+            }
+            else if(nbGenere<990){
+                id = 6; // 1% de générer une brique toxique
             }
             else{
-                id = 7; // 0.7% de générer une brique faveur
+                id = 7; // 1% de générer une brique faveur
             }
             briques[i][j].id = id;
             donnerCoords(&briques[i][j],i, j);

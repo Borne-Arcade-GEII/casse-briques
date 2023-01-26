@@ -7,7 +7,7 @@
 
 #define NbBriqueLongueur 12 //  nombre de briques en longueur
 #define NbBriqueHauteur 9 // nombre de briques en hauteur
-#define VITESSE_BOULE 0.2
+#define VITESSE_BOULE 0.5
 #define FONT_PATH "../fonts/Font.ttf"
 
 #include <SDL2/SDL.h>

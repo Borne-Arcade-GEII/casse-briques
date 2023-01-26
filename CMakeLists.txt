@@ -32,4 +32,5 @@ target_link_libraries (casse-briques ${SDL2_LIBRARIES}
         ${SDL2_MIXER_LIBRARIES}
         ${SDL2_TTF_LIBRARIES}
         ${FREETYPE2_LIBRARIES}
-        ${HARFBUZZ_LIBRARIES})
+        ${HARFBUZZ_LIBRARIES}
+        m)

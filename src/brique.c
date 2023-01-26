@@ -19,9 +19,6 @@ void casseLaBrique(brique *brique, int i, int j){
     switch(brique->id){
         case 1 :
             brique->id = 0;
-            if(rand()%1000<15){
-                generePowerup( brique, '?');
-            }
             ajoutScore(PT_SCORE);
             break;
         case 2:

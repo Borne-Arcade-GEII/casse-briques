@@ -120,7 +120,7 @@ void affichageEcranFinal(SDL_Renderer *renderer) {
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
     SDL_RenderClear(renderer);
     char text[100] ;
-    sprintf(text, "Score final : %hd",score);
+    sprintf(text, "Score final : %ld",score);
     SDL_Surface *texte = TTF_RenderUTF8_Blended(police, text, blanc);
     // Création de la texture à partir de la surface
     SDL_Texture *texture1 = SDL_CreateTextureFromSurface(renderer, texte);
@@ -252,7 +252,7 @@ void affichage(SDL_Renderer *renderer, TTF_Font *police) {
 
     // Création de la surface contenant le texte
     char text[100];
-    sprintf(text, "Vies : %d - Score : %d - Niveau : %d", vies, score, niveau);
+    sprintf(text, "Vies : %d - Score : %ld - Niveau : %d", vies, score, niveau);
     SDL_Surface *texte = TTF_RenderUTF8_Blended(police, text, blanc);
     // Création de la texture à partir de la surface
     SDL_Texture *texture = SDL_CreateTextureFromSurface(renderer, texte);

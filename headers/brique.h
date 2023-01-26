@@ -8,7 +8,7 @@
 #include <stdbool.h>
 
 #define TAILLEPWUP 10
-#define VITESSE_CHUTE_PWP 0.05
+#define VITESSE_CHUTE_PWP 0.1
 
 struct brique {
     unsigned char id ;
