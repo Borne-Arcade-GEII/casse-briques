@@ -1,6 +1,7 @@
 //
 // Created by Nathan on 23/01/2023.
 //
+
 #include "../headers/brique.h"
 #include "../headers/main.h"
 #include "../headers/score.h"
@@ -19,8 +20,14 @@ void donnerCoords(brique *brique, unsigned short posx, unsigned short posy){
 }
 
 void casseLaBrique(brique *brique, int i, int j,bool exp){
+    if(exp && brique->id != 3){
+        Mix_PlayChannel(-1, brique_explose, 0);
+    }
     switch(brique->id){
         case 1 :
+            if(!exp) {
+                Mix_PlayChannel(-1, brique_cassee1, 0);
+            }
             brique->id = 0;
             ajoutScore(PT_SCORE);
             break;
@@ -29,27 +36,41 @@ void casseLaBrique(brique *brique, int i, int j,bool exp){
                 brique->id = 0;
                 ajoutScore(PT_SCORE);
             }else{
+                Mix_PlayChannel(-1, brique_cassee2, 0);
                 brique->id = 1;
             }
             ajoutScore(PT_SCORE);
             break;
+        case 3 :
+                Mix_PlayChannel(-1, brique_cassee3, 0);
+            break;
         case 4 :
+            if(!exp) {
+                Mix_PlayChannel(-1, brique_cassee4, 0);
+            }
             brique->id = 0;
             generePowerup(brique,'?');
             ajoutScore(PT_SCORE*5);
             break;
         case 5 :
             brique->id = 0;
+            Mix_PlayChannel(-1, brique_explose, 0);
             explosionBrique(i, j);
             ajoutScore(PT_SCORE*5);
             break;
         case 6 :
+            if(!exp) {
+                Mix_PlayChannel(-1, brique_cassee6, 0);
+            }
             brique->id = 0;
             inverse_commande = true;
             timer[2] = SDL_GetTicks();
             ajoutScore(PT_SCORE*5);
             break;
         case 7 :
+            if(!exp) {
+                Mix_PlayChannel(-1, brique_cassee7, 0);
+            }
             brique->id = 0;
             generePowerup(brique,'+');
             ajoutScore(PT_SCORE*10);

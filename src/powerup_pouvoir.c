@@ -22,6 +22,11 @@ void CheckTimer(){
 }
 
 void activerPwUp(brique *brique1){
+    if(brique1->pw_up>=5){
+        Mix_PlayChannel(-1, powerup_bonus, 0);
+    }else{
+        Mix_PlayChannel(-1, powerup_malus, 0);
+    }
     switch(brique1->pw_up){
         case 1 ://rétrecir taille barre
             barre1.Longueur = ScrWidth/25;

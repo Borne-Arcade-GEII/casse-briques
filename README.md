@@ -52,10 +52,29 @@ Bonus :
   ce qui fait un effet de zone
 * 8 - Multiplicateur de points : pendant 30 secondes nous gagnons le double de pts
 * 9 - Vie bonus (rare)
+
+On ajoutera une information visuelle afin de savoir quel powerup on a et quand est-ce qu'il se termine.
+
 Score :
 -
 
 Un système de score avec un tableau de hi-score à la fin de la partie
 On gagne des pts a chaque fois qu'on casse une brique, qu'on prend un powerup ou qu'on
 finit un niveau.
+
+Sons:
+-
+
+Gestion des sons via SDL2 audio. Sons différents pour : 
+* Collision de la balle
+* Brique cassée
+* Brique explosée
+* Powerup qui tombe
+* Bonus obtenu
+* Malus obtenu
+* Musique de fond en boucle?
+* Vie perdue
+* Niveau terminé
+* Fin de partie
+
 

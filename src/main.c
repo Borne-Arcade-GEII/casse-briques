@@ -17,9 +17,22 @@
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
+#include <SDL_mixer.h>
 
 
-
+Mix_Chunk *brique_cassee1 = NULL;
+Mix_Chunk *brique_cassee2 = NULL;
+Mix_Chunk *brique_cassee3 = NULL;
+Mix_Chunk *brique_cassee4 = NULL;
+Mix_Chunk *brique_cassee6 = NULL;
+Mix_Chunk *brique_cassee7 = NULL;
+Mix_Chunk *brique_explose = NULL;
+Mix_Chunk *powerup_bonus = NULL;
+Mix_Chunk *powerup_malus = NULL;
+Mix_Chunk *collision_barre = NULL;
+Mix_Chunk *collision_bord = NULL;
+Mix_Chunk *perte_vie = NULL;
+Mix_Chunk *fin_niveau = NULL;
 
 
 unsigned short ScrWidth = 0 , ScrHeight = 0;
@@ -35,6 +48,22 @@ int main(int argc, char *argv[]) {
     SDL_Renderer *renderer;
     SDL_Init(SDL_INIT_EVERYTHING);
     TTF_Init();
+
+    Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048);
+    brique_cassee1 = Mix_LoadWAV("../sounds/brique_cassee1.wav");
+    brique_cassee2 = Mix_LoadWAV("../sounds/brique_cassee2.wav");
+    brique_cassee3 = Mix_LoadWAV("../sounds/brique_cassee3.wav");
+    brique_cassee4 = Mix_LoadWAV("../sounds/brique_cassee4.wav");
+    brique_cassee3 = Mix_LoadWAV("../sounds/brique_cassee6.wav");
+    brique_cassee4 = Mix_LoadWAV("../sounds/brique_cassee7.wav");
+    brique_explose = Mix_LoadWAV("../sounds/explosion.wav");
+    powerup_bonus = Mix_LoadWAV("../sounds/powerup_bonus.wav");
+    powerup_malus = Mix_LoadWAV("../sounds/powerup_malus.wav");
+    collision_barre = Mix_LoadWAV("../sounds/collision_barre.wav");
+    collision_bord = Mix_LoadWAV("../sounds/collision_bord.wav");
+    perte_vie = Mix_LoadWAV("../sounds/perte_vie.wav");
+    fin_niveau = Mix_LoadWAV("../sounds/fin_niveau.wav");
+
     TTF_Font *police = TTF_OpenFont(FONT_PATH, 16);
     printf("%s",SDL_GetBasePath());
     SDL_DisplayMode DM;
@@ -65,7 +94,7 @@ int main(int argc, char *argv[]) {
     while(rejouer) {
         InitBarre();
         score = 0;
-        vies = 3;
+        vies = 2;
         niveau = 0;
         reset(true);
         affichage(renderer, police);
@@ -278,6 +307,9 @@ void reset(bool niveaufini){
         desactiverPWUP(i);
     }
     if(niveaufini) {
+        if(niveau>0) {
+            Mix_PlayChannel(-1, fin_niveau, 0);
+        }
         genererTableau();
         vies++;
         niveau++;

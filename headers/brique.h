@@ -6,10 +6,10 @@
 #define CASSE_BRIQUES_BRIQUE_H
 
 #include <stdbool.h>
+#include <SDL_mixer.h>
 
 #define TAILLEPWUP 10
 #define VITESSE_CHUTE_PWP 0.05
-
 struct brique {
     unsigned char id ;
     unsigned short x_coin_hautGauche;

@@ -42,6 +42,7 @@ float angleDegreVersRadian(float angleDegre){
 
 void gereCollisionBord(balle *b){
     if (b->posx < b->rayon || (b->posx > ScrWidth - b->rayon)) {
+        Mix_PlayChannel(-1, collision_bord, 0);
         b->vitessex = -b->vitessex;
         reinitCollision(NbBriqueLongueur+1,NbBriqueHauteur+1);
         if(b->posx < b->rayon){
@@ -52,12 +53,14 @@ void gereCollisionBord(balle *b){
         }
     }
     if (b->posy < b->rayon){
+        Mix_PlayChannel(-1, collision_bord, 0);
         b->vitessey = -b->vitessey;
         b->posy = b->rayon;
         reinitCollision(NbBriqueLongueur+1,NbBriqueHauteur+1);
     }
     if(b->posy > ScrHeight - b->rayon){
         if(vies>0) {
+            Mix_PlayChannel(-1, perte_vie, 0);
             vies--;
             reset(false);
         }
@@ -74,6 +77,7 @@ void gereCollisionBarre(balle *b){
             float calc_inter = (b->posx - barre1.posCentre + barre1.Longueur);
             float angle = (-calc_inter / (2 * barre1.Longueur)) * (90) +140;
             // on génère un angle entre 40 et 140 degrés en fonction de la position de la balle sur la barre
+            Mix_PlayChannel(-1, collision_barre, 0);
             b->angle = angleDegreVersRadian(angle);
             calculVitesseRect(b);
             reinitCollision(NbBriqueLongueur+1,NbBriqueHauteur+1);

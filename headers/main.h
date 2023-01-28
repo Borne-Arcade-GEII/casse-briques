@@ -12,6 +12,7 @@
 
 #include <SDL2/SDL.h>
 #include <SDL_ttf.h>
+#include <SDL_mixer.h>
 #include "barre.h"
 #include "brique.h"
 #include "balle.h"
@@ -19,6 +20,20 @@
 extern unsigned short niveau ;
 extern unsigned short ScrWidth, ScrHeight;
 extern bool inverse_commande;
+extern Mix_Chunk *brique_cassee1;
+extern Mix_Chunk *brique_cassee2;
+extern Mix_Chunk *brique_cassee3;
+extern Mix_Chunk *brique_cassee4;
+extern Mix_Chunk *brique_cassee6;
+extern Mix_Chunk *brique_cassee7;
+extern Mix_Chunk *brique_explose;
+extern Mix_Chunk *powerup_bonus;
+extern Mix_Chunk *powerup_malus;
+extern Mix_Chunk *collision_barre;
+
+extern Mix_Chunk *collision_bord;
+extern Mix_Chunk *perte_vie ;
+extern Mix_Chunk *fin_niveau;
 
 void affichageTitrePlaceHolder(SDL_Renderer *renderer, TTF_Font *police);
 void affichage(SDL_Renderer *renderer, TTF_Font *police);
