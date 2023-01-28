@@ -75,19 +75,35 @@ void gereCollisionBarre(balle *b){
 }
 
 void gereCollisionBrique(balle *b){
-    //on teste pour chaque brique s'il y a collision
+    //on teste pour chaque brique s'il y a collisiond
     for(int i = 0 ; i<NbBriqueLongueur;i++) {
         for (int j = 0; j < NbBriqueHauteur; j++) {
             if (b->posx + b->rayon > briques[i][j].x_coin_hautGauche && b->posx - b->rayon < briques[i][j].x_coin_basDroite) {
                 if (b->posy + b->rayon > briques[i][j].y_coin_hautGauche && b->posy - b->rayon < briques[i][j].y_coin_basDroite) {
                     if(briques[i][j].id > 0 && !briques[i][j].collision) {
 
+                        bool cond_a = (b->posx < briques[i][j].x_coin_hautGauche + b->rayon) ||
+                                 (b->posx >briques[i][j].x_coin_basDroite -b->rayon);
+                        bool cond_b = (b->posy < briques[i][j].y_coin_hautGauche + b->rayon) ||
+                                      (b->posy >briques[i][j].y_coin_basDroite -b->rayon);
 
+                        // faut modifier la fonction pour faire en sorte que la modif de vitesse en coin ne s'applique que quand t'as pas de briques a coté du coin
 
-                        if ((b->posx < briques[i][j].x_coin_hautGauche + b->rayon) ||
-                        (b->posx >briques[i][j].x_coin_basDroite -b->rayon)) {// si on touche la brique sur le côté quoi
-                            b->vitessex = -b->vitessex;
-                        }else{
+                        if(cond_a && cond_b){// dans les coins
+                            float xrelatif = b->posx - briques[i][j].x_centre;
+                            float yrelatif =  briques[i][j].y_centre - b->posy;//faut inverser comme les coords y sont calcules a l'envers
+                            b->angle = atan(yrelatif/xrelatif);
+                            if(xrelatif<0){
+                                b->angle += M_PI;
+                            }
+
+                            printf("%f %f %f\n",xrelatif,yrelatif,b->angle);
+                            calculVitesseRect(b);
+                        }
+                        else if(cond_a) {// si on touche la brique sur le côté gauche droit
+                                b->vitessex = -b->vitessex;
+                            }
+                        else if(cond_b){// si on touche la brique sur le côté haut bas
                             b->vitessey = -b->vitessey;
                         }
                         briques[i][j].collision = true;

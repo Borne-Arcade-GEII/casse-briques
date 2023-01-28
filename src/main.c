@@ -274,6 +274,9 @@ void reset(bool niveaufini){
     initBalle(&balle1, barre1.posCentre,barre1.positionyBarre-barre1.Hauteur-0.01 * ScrHeight, VITESSE_BOULE, angle);
     balle1.freeze = true;
     barre1.magnetique = 1;
+    for(int i = 0 ; i<9; i++){
+        desactiverPWUP(i);
+    }
     if(niveaufini) {
         genererTableau();
         niveau++;

@@ -13,6 +13,9 @@ void donnerCoords(brique *brique, unsigned short posx, unsigned short posy){
     brique->y_coin_hautGauche = posy * (ScrHeight/(NbBriqueHauteur*2));
     brique->x_coin_basDroite = (posx+1) * (ScrWidth/NbBriqueLongueur);
     brique->y_coin_basDroite = (posy+1) * (ScrHeight/(NbBriqueHauteur*2));
+    brique->x_centre = brique->x_coin_hautGauche + (brique->x_coin_basDroite-brique->x_coin_hautGauche)/2;
+    brique->y_centre = brique->y_coin_hautGauche + (brique->y_coin_basDroite-brique->y_coin_hautGauche)/2;
+
 }
 
 void casseLaBrique(brique *brique, int i, int j){

@@ -20,6 +20,8 @@ struct brique {
     float pwup_posx;
     float pwup_posy;
     bool collision;//renvoie 1 si on vient de la toucher
+    unsigned short x_centre;
+    unsigned short y_centre;
 };
 
 typedef struct brique brique;
