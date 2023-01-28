@@ -18,14 +18,19 @@ void donnerCoords(brique *brique, unsigned short posx, unsigned short posy){
 
 }
 
-void casseLaBrique(brique *brique, int i, int j){
+void casseLaBrique(brique *brique, int i, int j,bool exp){
     switch(brique->id){
         case 1 :
             brique->id = 0;
             ajoutScore(PT_SCORE);
             break;
         case 2:
-            brique->id =1;
+            if(exp){
+                brique->id = 0;
+                ajoutScore(PT_SCORE);
+            }else{
+                brique->id = 1;
+            }
             ajoutScore(PT_SCORE);
             break;
         case 4 :

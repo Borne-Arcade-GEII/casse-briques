@@ -4,4 +4,4 @@
 
 #include "../headers/vies.h"
 
-signed char vies = 3;
+signed char vies = 2;

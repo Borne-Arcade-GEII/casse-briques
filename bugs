@@ -1,8 +1,12 @@
-J'ai eu une partie avec une brique quasi inatteigable, dans le coin en haut à droite avec une brique invincible juste
-à coté (possible mais chiant)
 
-supprimer le fichier powerups .c sans que ca empeche la compilation (frustrant de fou)
 
 les collisions des briques sont pas ouf
+--> faire en sorte que ca marche mieux
+
+
 les explosifs déconnent un peu:
 faire la balle explosive aussi
+
+faire en sorte d'unifier la vitesse de la balle en la faisant dépendre des ticks
+
+

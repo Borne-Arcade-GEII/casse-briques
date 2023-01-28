@@ -44,9 +44,16 @@ void gereCollisionBord(balle *b){
     if (b->posx < b->rayon || (b->posx > ScrWidth - b->rayon)) {
         b->vitessex = -b->vitessex;
         reinitCollision(NbBriqueLongueur+1,NbBriqueHauteur+1);
+        if(b->posx < b->rayon){
+            b->posx = b->rayon;
+        }
+        else{
+            b->posx = ScrWidth - b->rayon;
+        }
     }
     if (b->posy < b->rayon){
         b->vitessey = -b->vitessey;
+        b->posy = b->rayon;
         reinitCollision(NbBriqueLongueur+1,NbBriqueHauteur+1);
     }
     if(b->posy > ScrHeight - b->rayon){
@@ -87,7 +94,6 @@ void gereCollisionBrique(balle *b){
                         bool cond_b = (b->posy < briques[i][j].y_coin_hautGauche + b->rayon) ||
                                       (b->posy >briques[i][j].y_coin_basDroite -b->rayon);
 
-                        // faut modifier la fonction pour faire en sorte que la modif de vitesse en coin ne s'applique que quand t'as pas de briques a coté du coin
 
                         if(cond_a && cond_b){// dans les coins
                             float xrelatif = b->posx - briques[i][j].x_centre;
@@ -96,8 +102,6 @@ void gereCollisionBrique(balle *b){
                             if(xrelatif<0){
                                 b->angle += M_PI;
                             }
-
-                            printf("%f %f %f\n",xrelatif,yrelatif,b->angle);
                             calculVitesseRect(b);
                         }
                         else if(cond_a) {// si on touche la brique sur le côté gauche droit
@@ -108,7 +112,11 @@ void gereCollisionBrique(balle *b){
                         }
                         briques[i][j].collision = true;
                         reinitCollision(i,j);
-                        casseLaBrique(&briques[i][j],i,j);
+                        if(b->explosive){
+                            explosionBrique(i,j);
+                        }else {
+                            casseLaBrique(&briques[i][j], i, j,false);
+                        }
                     }
                 }
             }

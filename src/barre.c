@@ -4,7 +4,7 @@
 
 #include "../headers/barre.h"
 #include "../headers/main.h"
-#define VITESSE_BARRE 0.7
+
 barre barre1 = {0, 0,0,0,1};
 
 void InitBarre(){

@@ -18,7 +18,7 @@ limites defLimites(int i, int j){
     else{
         retour.limA  = i;
     }
-    if(i < NbBriqueLongueur + 1){
+    if(i < NbBriqueLongueur - 1){
         retour.limB  = i+1;
     }
     else{
@@ -30,7 +30,7 @@ limites defLimites(int i, int j){
     else{
         retour.limC = j;
     }
-    if(j < NbBriqueHauteur + 1){
+    if(j < NbBriqueHauteur - 1){
         retour.limD = j+1;
     }
     else{
@@ -42,8 +42,8 @@ limites defLimites(int i, int j){
 bool pasDeBriqueInvincibleACote(unsigned short i,unsigned short j){
     bool retour = true;
     limites limiteIJ = defLimites(i,j);
-    for(unsigned short i2= limiteIJ.limA; i2<limiteIJ.limB;i2++){
-        for(unsigned short j2 = limiteIJ.limC;j2<limiteIJ.limD;j2++){
+    for(unsigned short i2= limiteIJ.limA; i2<=limiteIJ.limB;i2++){
+        for(unsigned short j2 = limiteIJ.limC;j2<=limiteIJ.limD;j2++){
             if(briques[i2][j2].id == 3 && ( !((i2 == i) && (j2 == j)) ) ){
                 retour = false;
             }
@@ -53,11 +53,13 @@ bool pasDeBriqueInvincibleACote(unsigned short i,unsigned short j){
 }
 
 void explosionBrique(unsigned short i,unsigned short j){
-    limites limiteIJ = defLimites(i,j);
-    for(unsigned short i2= limiteIJ.limA; i2<limiteIJ.limB;i2++){
-        for(unsigned short j2 = limiteIJ.limC;j2<limiteIJ.limD;j2++){
-            if(briques[i2][j2].id != 3){
-                casseLaBrique(&briques[i2][j2],i2,j2);
+    if(briques[i][j].id != 3) {
+        limites limiteIJ = defLimites(i, j);
+        for (unsigned short i2 = limiteIJ.limA; i2 <= limiteIJ.limB; i2++) {
+            for (unsigned short j2 = limiteIJ.limC; j2 <= limiteIJ.limD; j2++) {
+                if (briques[i2][j2].id != 3) {
+                    casseLaBrique(&briques[i2][j2], i2, j2,true);
+                }
             }
         }
     }

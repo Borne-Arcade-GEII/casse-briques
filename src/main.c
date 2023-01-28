@@ -279,6 +279,7 @@ void reset(bool niveaufini){
     }
     if(niveaufini) {
         genererTableau();
+        vies++;
         niveau++;
     }
     reinitCollision(NbBriqueLongueur+1,NbBriqueHauteur+1);
