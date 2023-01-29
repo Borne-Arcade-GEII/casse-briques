@@ -54,8 +54,8 @@ int main(int argc, char *argv[]) {
     brique_cassee2 = Mix_LoadWAV("../sounds/brique_cassee2.wav");
     brique_cassee3 = Mix_LoadWAV("../sounds/brique_cassee3.wav");
     brique_cassee4 = Mix_LoadWAV("../sounds/brique_cassee4.wav");
-    brique_cassee3 = Mix_LoadWAV("../sounds/brique_cassee6.wav");
-    brique_cassee4 = Mix_LoadWAV("../sounds/brique_cassee7.wav");
+    brique_cassee6 = Mix_LoadWAV("../sounds/brique_cassee6.wav");
+    brique_cassee7 = Mix_LoadWAV("../sounds/brique_cassee7.wav");
     brique_explose = Mix_LoadWAV("../sounds/explosion.wav");
     powerup_bonus = Mix_LoadWAV("../sounds/powerup_bonus.wav");
     powerup_malus = Mix_LoadWAV("../sounds/powerup_malus.wav");
@@ -100,8 +100,7 @@ int main(int argc, char *argv[]) {
         affichage(renderer, police);
 
         //boucle de jeu : tant qu'on n'a pas de game over
-        while (event.type != SDL_QUIT &&
-               vies > 0) { // remplacer cette condition par game over() == 0 && event.type != SDL_QUIT plus tard
+        while (event.type != SDL_QUIT && vies > 0) {
             SDL_PollEvent(&event);
             const Uint8 *state = SDL_GetKeyboardState(NULL);
             if ((state[SDL_SCANCODE_A] && !inverse_commande) || (state[SDL_SCANCODE_D] && inverse_commande)) {
