@@ -35,6 +35,7 @@ extern Mix_Chunk *collision_barre;
 extern Mix_Chunk *collision_bord;
 extern Mix_Chunk *perte_vie ;
 extern Mix_Chunk *fin_niveau;
+extern Mix_Chunk *musique_titre;
 
 void affichageTitrePlaceHolder(SDL_Renderer *renderer, TTF_Font *police);
 void affichage(SDL_Renderer *renderer, TTF_Font *police);

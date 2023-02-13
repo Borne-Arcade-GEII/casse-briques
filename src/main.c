@@ -32,6 +32,7 @@ Mix_Chunk *collision_barre = NULL;
 Mix_Chunk *collision_bord = NULL;
 Mix_Chunk *perte_vie = NULL;
 Mix_Chunk *fin_niveau = NULL;
+Mix_Chunk *musique_titre = NULL;
 
 
 SDL_Texture *agrandissement = NULL;
@@ -99,6 +100,7 @@ int main(int argc, char *argv[]) {
     collision_bord = Mix_LoadWAV("../sounds/collision_bord.wav");
     perte_vie = Mix_LoadWAV("../sounds/perte_vie.wav");
     fin_niveau = Mix_LoadWAV("../sounds/fin_niveau.wav");
+    musique_titre = Mix_LoadWAV("../sounds/musique_titre.wav");
 
     agrandissement = IMG_LoadTexture(renderer, "../assets/agrandissement.png");
     aimant = IMG_LoadTexture(renderer, "../assets/aimant.png");
@@ -118,7 +120,9 @@ int main(int argc, char *argv[]) {
     ajout_vie = IMG_LoadTexture(renderer, "../assets/ajout_vie.png");
     balle_rapide = IMG_LoadTexture(renderer, "../assets/balle_rapide.png");
 
+    Mix_PlayChannel(-1, musique_titre, -1);
     affichageTitrePlaceHolder(renderer,police);
+
 
     SDL_Event event;
 
@@ -130,6 +134,7 @@ int main(int argc, char *argv[]) {
             }
         }
     }
+
     while(rejouer) {
         InitBarre();
         score = 0;
@@ -214,7 +219,7 @@ void affichageTitrePlaceHolder(SDL_Renderer *renderer, TTF_Font *police) {
     SDL_RenderClear(renderer);
     SDL_Surface *texte = TTF_RenderUTF8_Blended(police2, "CASSE-BRIQUES", blanc);
     SDL_Surface *texte2 = TTF_RenderUTF8_Blended(police3, "Appuie sur un bouton pour commencer", blanc);
-    SDL_Surface *texte3 = TTF_RenderUTF8_Blended(police, "par NATHAN TASTET pour CODE ALPHA - 2023", blanc);
+    SDL_Surface *texte3 = TTF_RenderUTF8_Blended(police, "NATHAN TASTET - DAPHNE RODELET - CODE ALPHA - 2023", blanc);
     // Création de la texture à partir de la surface
     SDL_Texture *texture1 = SDL_CreateTextureFromSurface(renderer, texte);
     SDL_Texture *texture2 = SDL_CreateTextureFromSurface(renderer, texte2);
