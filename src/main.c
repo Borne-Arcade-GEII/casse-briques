@@ -17,7 +17,6 @@
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
-#include <SDL_mixer.h>
 
 
 Mix_Chunk *brique_cassee1 = NULL;
@@ -35,6 +34,26 @@ Mix_Chunk *perte_vie = NULL;
 Mix_Chunk *fin_niveau = NULL;
 
 
+SDL_Texture *agrandissement = NULL;
+SDL_Texture *aimant = NULL;
+SDL_Texture *brique_1coup = NULL;
+SDL_Texture *brique_2coup = NULL;
+SDL_Texture *brique_metal = NULL;
+SDL_Texture *brique_bonus = NULL;
+SDL_Texture *brique_powerup = NULL;
+SDL_Texture *brique_reverse = NULL;
+SDL_Texture *brique_TNT = NULL;
+SDL_Texture *multi_piece = NULL;
+SDL_Texture *perte_piece = NULL;
+SDL_Texture *piece_classique = NULL;
+SDL_Texture *retrecissement = NULL;
+SDL_Texture *reverse = NULL;
+SDL_Texture *ajout_vie = NULL;
+SDL_Texture *explosif = NULL;
+SDL_Texture *balle_rapide = NULL;
+
+
+
 unsigned short ScrWidth = 0 , ScrHeight = 0;
 unsigned short niveau = 0;
 bool inverse_commande = false;
@@ -48,6 +67,23 @@ int main(int argc, char *argv[]) {
     SDL_Renderer *renderer;
     SDL_Init(SDL_INIT_EVERYTHING);
     TTF_Init();
+    IMG_Init(IMG_INIT_PNG);
+
+
+    TTF_Font *police = TTF_OpenFont(FONT_PATH, 16);
+    printf("%s",SDL_GetBasePath());
+    SDL_DisplayMode DM;
+    SDL_GetCurrentDisplayMode(0, &DM);
+    ScrWidth = DM.w-200, ScrHeight = DM.h-100;
+
+
+    window = SDL_CreateWindow("Casse-briques",
+                              SDL_WINDOWPOS_UNDEFINED,
+                              SDL_WINDOWPOS_UNDEFINED,
+                              ScrWidth, ScrHeight,
+                              SDL_WINDOW_ALLOW_HIGHDPI);
+
+    renderer = SDL_CreateRenderer(window, -1, 0);
 
     Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048);
     brique_cassee1 = Mix_LoadWAV("../sounds/brique_cassee1.wav");
@@ -64,20 +100,23 @@ int main(int argc, char *argv[]) {
     perte_vie = Mix_LoadWAV("../sounds/perte_vie.wav");
     fin_niveau = Mix_LoadWAV("../sounds/fin_niveau.wav");
 
-    TTF_Font *police = TTF_OpenFont(FONT_PATH, 16);
-    printf("%s",SDL_GetBasePath());
-    SDL_DisplayMode DM;
-    SDL_GetCurrentDisplayMode(0, &DM);
-    ScrWidth = DM.w-200, ScrHeight = DM.h-100;
-
-
-    window = SDL_CreateWindow("Casse-briques",
-                              SDL_WINDOWPOS_UNDEFINED,
-                              SDL_WINDOWPOS_UNDEFINED,
-                              ScrWidth, ScrHeight,
-                              SDL_WINDOW_ALLOW_HIGHDPI);
-
-    renderer = SDL_CreateRenderer(window, -1, 0);
+    agrandissement = IMG_LoadTexture(renderer, "../assets/agrandissement.png");
+    aimant = IMG_LoadTexture(renderer, "../assets/aimant.png");
+    brique_1coup = IMG_LoadTexture(renderer, "../assets/brique_1coup.png");
+    brique_2coup = IMG_LoadTexture(renderer, "../assets/brique_2coup.png");
+    brique_bonus = IMG_LoadTexture(renderer, "../assets/brique_bonus.png");
+    brique_powerup = IMG_LoadTexture(renderer, "../assets/brique_powerup.png");
+    brique_reverse = IMG_LoadTexture(renderer, "../assets/brique_reverse.png");
+    brique_metal = IMG_LoadTexture(renderer, "../assets/brique_metal.png");
+    brique_TNT = IMG_LoadTexture(renderer, "../assets/brique_TNT.png");
+    multi_piece = IMG_LoadTexture(renderer, "../assets/multi_piece.png");
+    perte_piece = IMG_LoadTexture(renderer, "../assets/perte_piece.png");
+    piece_classique = IMG_LoadTexture(renderer, "../assets/piece_classique.png");
+    retrecissement = IMG_LoadTexture(renderer, "../assets/retrecissement.png");
+    reverse = IMG_LoadTexture(renderer, "../assets/reverse.png");
+    explosif = IMG_LoadTexture(renderer, "../assets/explosif.png");
+    ajout_vie = IMG_LoadTexture(renderer, "../assets/ajout_vie.png");
+    balle_rapide = IMG_LoadTexture(renderer, "../assets/balle_rapide.png");
 
     affichageTitrePlaceHolder(renderer,police);
 
@@ -188,7 +227,6 @@ void affichageTitrePlaceHolder(SDL_Renderer *renderer, TTF_Font *police) {
     SDL_RenderCopy(renderer, texture1, NULL, &position1);
     SDL_RenderCopy(renderer, texture2, NULL, &position2);
     SDL_RenderCopy(renderer, texture3, NULL, &position3);
-
     // Libération de la mémoire
     SDL_FreeSurface(texte);
     SDL_FreeSurface(texte2);
@@ -204,64 +242,84 @@ void affichageTitrePlaceHolder(SDL_Renderer *renderer, TTF_Font *police) {
 void affichage(SDL_Renderer *renderer, TTF_Font *police) {
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
     SDL_RenderClear(renderer);
+    SDL_Rect rect;
     //affichage des briques
     for (int i =0; i<NbBriqueLongueur ; i++) {
         for (int j = NbBriqueHauteur-1 ; j >=0 ; j--) { // on affiche à l'envers ici pour bien afficher les pwups
+            if(briques[i][j].id != 0) {
+                rect.x = briques[i][j].x_coin_hautGauche;
+                rect.y = briques[i][j].y_coin_hautGauche;
+                rect.w = briques[i][j].x_coin_basDroite - rect.x;
+                rect.h = briques[i][j].y_coin_basDroite - rect.y;
+            }
             switch (briques[i][j].id) {
-                case 0 :
-                    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
-                    break;
                 case 1 :
-                    SDL_SetRenderDrawColor(renderer, 255, 255, 255, 0);
+                    SDL_RenderCopy(renderer, brique_1coup, NULL, &rect);
                     break;
                 case 2:
-                    SDL_SetRenderDrawColor(renderer, 0, 0, 255, 0);
+                    SDL_RenderCopy(renderer, brique_2coup, NULL, &rect);
                     break;
                 case 3:
-                    SDL_SetRenderDrawColor(renderer, 155, 155, 155, 0);
+                    SDL_RenderCopy(renderer, brique_metal, NULL, &rect);
                     break;
                 case 4 :
-                    SDL_SetRenderDrawColor(renderer, 0, 255, 0, 0);
+                    SDL_RenderCopy(renderer, brique_powerup, NULL, &rect);
                     break;
                 case 5 :
-                    SDL_SetRenderDrawColor(renderer, 255, 0, 0, 0);
+                    SDL_RenderCopy(renderer, brique_TNT, NULL, &rect);
                     break;
                 case 6 :
-                    SDL_SetRenderDrawColor(renderer, 238, 130, 238, 0);
+                    SDL_RenderCopy(renderer, brique_reverse, NULL, &rect);
                     break;
                 case 7 :
-                    SDL_SetRenderDrawColor(renderer, 255, 184, 28, 0);
+                    SDL_RenderCopy(renderer, brique_bonus, NULL, &rect);
                     break;
                 default :
-                    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
                     break;
             }
-            SDL_Rect rect;
-            rect.x = briques[i][j].x_coin_hautGauche;
-            rect.y = briques[i][j].y_coin_hautGauche;
-            rect.w = briques[i][j].x_coin_basDroite - rect.x;
-            rect.h = briques[i][j].y_coin_basDroite - rect.y;
-            SDL_RenderFillRect(renderer, &rect);
 
             // on génére les powerups s'il y en a
             if(briques[i][j].pw_up > 0){
-                if(briques[i][j].pw_up > 4){
-                    SDL_SetRenderDrawColor(renderer, 255, 184, 28, 0);
-                }
-                else{
-                    SDL_SetRenderDrawColor(renderer, 187, 0, 0, 0);
-                }
                 rect.x = briques[i][j].pwup_posx- TAILLEPWUP;
                 rect.y = briques[i][j].pwup_posy- TAILLEPWUP;;
                 rect.w = 2 * TAILLEPWUP;
                 rect.h = 2 * TAILLEPWUP;
-                SDL_RenderFillRect(renderer, &rect);
+                switch (briques[i][j].pw_up) {
+                    case 1 :
+                        SDL_RenderCopy(renderer, retrecissement, NULL, &rect);
+                        break;
+                    case 2:
+                        SDL_RenderCopy(renderer, reverse, NULL, &rect);
+                        break;
+                    case 3:
+                        SDL_RenderCopy(renderer, perte_piece, NULL, &rect);
+                        break;
+                    case 4:
+                        SDL_RenderCopy(renderer, balle_rapide, NULL, &rect);
+                        break;
+                    case 5 :
+                        SDL_RenderCopy(renderer, agrandissement, NULL, &rect);
+                        break;
+                    case 6 :
+                        SDL_RenderCopy(renderer, aimant, NULL, &rect);
+                        break;
+                    case 7 :
+                        SDL_RenderCopy(renderer, explosif, NULL, &rect);
+                        break;
+                    case 8 :
+                        SDL_RenderCopy(renderer, multi_piece, NULL, &rect);
+                        break;
+                    case 9 :
+                        SDL_RenderCopy(renderer, ajout_vie, NULL, &rect);
+                        break;
+                    default :
+                        break;
+                }
             }
         }
     }
     // on génère la barre mtn, on prend que la taille standard pour l'instant il faudra faire un switch pour plus tard
     SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
-    SDL_Rect rect;
     rect.x = barre1.posCentre - barre1.Longueur;
     rect.y = barre1.positionyBarre - barre1.Hauteur;
     rect.w = 2 * barre1.Longueur ;

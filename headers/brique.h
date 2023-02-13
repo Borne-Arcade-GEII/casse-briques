@@ -8,7 +8,7 @@
 #include <stdbool.h>
 #include <SDL_mixer.h>
 
-#define TAILLEPWUP 10
+#define TAILLEPWUP 25
 #define VITESSE_CHUTE_PWP 0.05
 struct brique {
     unsigned char id ;
