@@ -9,7 +9,7 @@
 #include <SDL_mixer.h>
 
 #define TAILLEPWUP 25
-#define VITESSE_CHUTE_PWP 0.05
+#define VITESSE_CHUTE_PWP 0.1
 struct brique {
     unsigned char id ;
     unsigned short x_coin_hautGauche;

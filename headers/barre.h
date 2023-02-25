@@ -6,7 +6,7 @@
 #define CASSE_BRIQUES_BARRE_H
 
 #include <stdbool.h>
-#define VITESSE_BARRE 0.4
+#define VITESSE_BARRE 0.45
 
 struct barre {
     float posCentre;

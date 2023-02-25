@@ -5,9 +5,9 @@
 #ifndef CASSE_BRIQUES_MAIN_H
 #define CASSE_BRIQUES_MAIN_H
 
-#define NbBriqueLongueur 11 //  nombre de briques en longueur
-#define NbBriqueHauteur 9 // nombre de briques en hauteur
-#define VITESSE_BOULE 0.2
+#define NbBriqueLongueur 10 //  nombre de briques en longueur
+#define NbBriqueHauteur 8 // nombre de briques en hauteur
+#define VITESSE_BOULE 0.24
 #define FONT_PATH "../fonts/Font.ttf"
 
 #include <SDL2/SDL.h>
