@@ -2,3 +2,14 @@ pwup : fixer une taille dépendant de la taille de l'écran
 faire une vraie hitbox
 
 ajouter en bas à droite les powerups actifs
+en bas a gauche refaire interface score vies niveau
+
+* quand on appuie sur espace au lancement, ne pas lancer direct la balle
+* score final -> espace pour passer direct a une novuelle game
+* menu explicatif des briques
+* M pour mute la musique de fond
+* monter le son de la musique de fond
+* d'autres musique de fond débloquables
+
+
+faire en sorte de casser les briques indestructibles vers la fin de la partie

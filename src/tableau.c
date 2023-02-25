@@ -54,14 +54,21 @@ bool pasDeBriqueInvincibleACote(unsigned short i,unsigned short j){
 
 void explosionBrique(unsigned short i,unsigned short j){
     if(briques[i][j].id != 3) {
+        char explose = 0 ;
         limites limiteIJ = defLimites(i, j);
         for (unsigned short i2 = limiteIJ.limA; i2 <= limiteIJ.limB; i2++) {
             for (unsigned short j2 = limiteIJ.limC; j2 <= limiteIJ.limD; j2++) {
                 if (briques[i2][j2].id != 3) {
                     casseLaBrique(&briques[i2][j2], i2, j2,true);
+                    explose = 1;
                 }
             }
         }
+        if(explose){
+            Mix_PlayChannel(-1, brique_explose, 0);
+        }
+    } else{
+        Mix_PlayChannel(-1, brique_cassee3, 0);
     }
 }
 

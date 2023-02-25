@@ -52,6 +52,7 @@ SDL_Texture *reverse = NULL;
 SDL_Texture *ajout_vie = NULL;
 SDL_Texture *explosif = NULL;
 SDL_Texture *balle_rapide = NULL;
+SDL_Texture *barre_aimant = NULL;
 
 
 
@@ -119,6 +120,8 @@ int main(int argc, char *argv[]) {
     explosif = IMG_LoadTexture(renderer, "../assets/explosif.png");
     ajout_vie = IMG_LoadTexture(renderer, "../assets/ajout_vie.png");
     balle_rapide = IMG_LoadTexture(renderer, "../assets/balle_rapide.png");
+    barre_aimant = IMG_LoadTexture(renderer, "../assets/barre_aimant.png");
+
 
     Mix_PlayChannel(-1, musique_titre, -1);
     affichageTitrePlaceHolder(renderer,police);
@@ -329,7 +332,14 @@ void affichage(SDL_Renderer *renderer, TTF_Font *police) {
     rect.y = barre1.positionyBarre - barre1.Hauteur;
     rect.w = 2 * barre1.Longueur ;
     rect.h = 2 * barre1.Hauteur ;
-    SDL_RenderFillRect(renderer, &rect);
+
+    if(barre1.magnetique ==2){
+        SDL_RenderCopy(renderer, barre_aimant, NULL, &rect);
+    }else{
+        SDL_RenderFillRect(renderer, &rect);
+    }
+
+
     // on génère la balle mtn
     for (int w = 0; w < balle1.rayon * 2; w++) {
         for (int h = 0; h < balle1.rayon * 2; h++) {

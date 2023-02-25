@@ -20,9 +20,6 @@ void donnerCoords(brique *brique, unsigned short posx, unsigned short posy){
 }
 
 void casseLaBrique(brique *brique, int i, int j,bool exp){
-    if(exp && brique->id != 3){
-        Mix_PlayChannel(-1, brique_explose, 0);
-    }
     switch(brique->id){
         case 1 :
             if(!exp) {
@@ -42,7 +39,9 @@ void casseLaBrique(brique *brique, int i, int j,bool exp){
             ajoutScore(PT_SCORE);
             break;
         case 3 :
+            if(!exp) {
                 Mix_PlayChannel(-1, brique_cassee3, 0);
+            }
             break;
         case 4 :
             if(!exp) {
@@ -54,7 +53,6 @@ void casseLaBrique(brique *brique, int i, int j,bool exp){
             break;
         case 5 :
             brique->id = 0;
-            Mix_PlayChannel(-1, brique_explose, 0);
             explosionBrique(i, j);
             ajoutScore(PT_SCORE*5);
             break;
