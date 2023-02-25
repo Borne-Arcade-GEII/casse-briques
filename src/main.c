@@ -53,10 +53,12 @@ SDL_Texture *ajout_vie = NULL;
 SDL_Texture *explosif = NULL;
 SDL_Texture *balle_rapide = NULL;
 SDL_Texture *barre_aimant = NULL;
+SDL_Texture *fond_droite = NULL;
 
 
 
-unsigned short ScrWidth = 0 , ScrHeight = 0;
+
+unsigned short TrueScrWidth = 0, ScrWidth = 0 , ScrHeight = 0;
 unsigned short niveau = 0;
 bool inverse_commande = false;
 bool rejouer = true;
@@ -72,17 +74,18 @@ int main(int argc, char *argv[]) {
     IMG_Init(IMG_INIT_PNG);
 
 
-    TTF_Font *police = TTF_OpenFont(FONT_PATH, 16);
+    TTF_Font *police = TTF_OpenFont(FONT_PATH, 40);
     printf("%s",SDL_GetBasePath());
     SDL_DisplayMode DM;
     SDL_GetCurrentDisplayMode(0, &DM);
-    ScrWidth = DM.w-200, ScrHeight = DM.h-100;
+    TrueScrWidth = DM.w;
+    ScrWidth = DM.w *  5/6, ScrHeight = DM.h;
 
 
     window = SDL_CreateWindow("Casse-briques",
                               SDL_WINDOWPOS_UNDEFINED,
                               SDL_WINDOWPOS_UNDEFINED,
-                              ScrWidth, ScrHeight,
+                              DM.w, ScrHeight,
                               SDL_WINDOW_ALLOW_HIGHDPI);
 
     renderer = SDL_CreateRenderer(window, -1, 0);
@@ -121,6 +124,7 @@ int main(int argc, char *argv[]) {
     ajout_vie = IMG_LoadTexture(renderer, "../assets/ajout_vie.png");
     balle_rapide = IMG_LoadTexture(renderer, "../assets/balle_rapide.png");
     barre_aimant = IMG_LoadTexture(renderer, "../assets/barre_aimant.png");
+    fond_droite = IMG_LoadTexture(renderer, "../assets/fond-droite.png");
 
 
     Mix_PlayChannel(-1, musique_titre, -1);
@@ -216,21 +220,21 @@ void affichageEcranFinal(SDL_Renderer *renderer) {
 void affichageTitrePlaceHolder(SDL_Renderer *renderer, TTF_Font *police) {
 
     TTF_Font *police2 = TTF_OpenFont(FONT_PATH, 90);
-    TTF_Font *police3 = TTF_OpenFont(FONT_PATH, 40);
+    TTF_Font *police3 = TTF_OpenFont(FONT_PATH, 16);
 
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
     SDL_RenderClear(renderer);
     SDL_Surface *texte = TTF_RenderUTF8_Blended(police2, "CASSE-BRIQUES", blanc);
-    SDL_Surface *texte2 = TTF_RenderUTF8_Blended(police3, "Appuie sur un bouton pour commencer", blanc);
-    SDL_Surface *texte3 = TTF_RenderUTF8_Blended(police, "NATHAN TASTET - DAPHNE RODELET - CODE ALPHA - 2023", blanc);
+    SDL_Surface *texte2 = TTF_RenderUTF8_Blended(police, "Appuie sur un bouton pour commencer", blanc);
+    SDL_Surface *texte3 = TTF_RenderUTF8_Blended(police3, "NATHAN TASTET - DAPHNE RODELET - CODE ALPHA - 2023", blanc);
     // Création de la texture à partir de la surface
     SDL_Texture *texture1 = SDL_CreateTextureFromSurface(renderer, texte);
     SDL_Texture *texture2 = SDL_CreateTextureFromSurface(renderer, texte2);
     SDL_Texture *texture3 = SDL_CreateTextureFromSurface(renderer, texte3);
     // Définition de la position où afficher le texte
-    SDL_Rect position1 = {(ScrWidth - texte->w) / 2, 3*ScrHeight/10, texte->w, texte->h};
-    SDL_Rect position2 = {(ScrWidth - texte2->w) / 2, 5*ScrHeight/10, texte2->w, texte2->h};
-    SDL_Rect position3 = {(ScrWidth - texte3->w) / 2, 13*ScrHeight/20, texte3->w, texte3->h};
+    SDL_Rect position1 = {(TrueScrWidth - texte->w) / 2, 3*ScrHeight/10, texte->w, texte->h};
+    SDL_Rect position2 = {(TrueScrWidth - texte2->w) / 2, 5*ScrHeight/10, texte2->w, texte2->h};
+    SDL_Rect position3 = {(TrueScrWidth - texte3->w) / 2, 13*ScrHeight/20, texte3->w, texte3->h};
     // Affichage du texte
     SDL_RenderCopy(renderer, texture1, NULL, &position1);
     SDL_RenderCopy(renderer, texture2, NULL, &position2);
@@ -326,7 +330,7 @@ void affichage(SDL_Renderer *renderer, TTF_Font *police) {
             }
         }
     }
-    // on génère la barre mtn, on prend que la taille standard pour l'instant il faudra faire un switch pour plus tard
+    // on génère la barre mtn
     SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
     rect.x = barre1.posCentre - barre1.Longueur;
     rect.y = barre1.positionyBarre - barre1.Hauteur;
@@ -351,21 +355,36 @@ void affichage(SDL_Renderer *renderer, TTF_Font *police) {
         }
     }
 
-    // Création de la surface contenant le texte
-    char text[100];
-    sprintf(text, "Vies : %d - Score : %ld - Niveau : %d", vies, score, niveau);
+    rect.x = ScrWidth;
+    rect.y = 0;
+    rect.w = TrueScrWidth - ScrWidth;
+    rect.h = ScrHeight;
+    SDL_RenderCopy(renderer, fond_droite, NULL, &rect);
+
+    // on ajoute les dessins
+    rect.x = 61* TrueScrWidth/72 ;
+    rect.y = ScrHeight/10;
+    rect.w = 5* TrueScrWidth/144 ;
+    rect.h = rect.w;
+    for(int i = 0; i<vies; i++){
+        SDL_RenderCopy(renderer, ajout_vie, NULL, &rect);
+        rect.x += rect.w;
+    }
+
+    char text[100] ;
+    sprintf(text, "%6d", score);
     SDL_Surface *texte = TTF_RenderUTF8_Blended(police, text, blanc);
-    // Création de la texture à partir de la surface
     SDL_Texture *texture = SDL_CreateTextureFromSurface(renderer, texte);
-    // Définition de la position où afficher le texte
-    SDL_Rect position = {0, 35*ScrHeight/36, texte->w, texte->h};
-    // Affichage du texte
-    SDL_RenderCopy(renderer, texture, NULL, &position);
-    // Libération de la mémoire
+    rect.x = 64* TrueScrWidth/72 ;
+    rect.y = 2.1 * ScrHeight/10;
+    rect.w = texte->w;
+    rect.h = texte->h;
+    SDL_RenderCopy(renderer, texture, NULL, &rect);
+
+
     SDL_FreeSurface(texte);
     SDL_DestroyTexture(texture);
 
-    // fin affichage
     SDL_RenderPresent(renderer);
 }
 

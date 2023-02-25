@@ -19,7 +19,7 @@
 #include "balle.h"
 
 extern unsigned short niveau ;
-extern unsigned short ScrWidth, ScrHeight;
+extern unsigned short TrueScrWidth, ScrWidth, ScrHeight;
 extern bool inverse_commande;
 extern Mix_Chunk *brique_cassee1;
 extern Mix_Chunk *brique_cassee2;
