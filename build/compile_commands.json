@@ -1,0 +1,47 @@
+[
+{
+  "directory": "/home/nathan/Documents/cassebriques/casse-briques/build",
+  "command": "/usr/bin/gcc-12  -I/usr/include/SDL2 -I/usr/include/freetype2 -I/usr/include/libpng16 -I/usr/include/harfbuzz -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -g -o CMakeFiles/casse-briques.dir/src/balle.c.o -c /home/nathan/Documents/cassebriques/casse-briques/src/balle.c",
+  "file": "/home/nathan/Documents/cassebriques/casse-briques/src/balle.c"
+},
+{
+  "directory": "/home/nathan/Documents/cassebriques/casse-briques/build",
+  "command": "/usr/bin/gcc-12  -I/usr/include/SDL2 -I/usr/include/freetype2 -I/usr/include/libpng16 -I/usr/include/harfbuzz -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -g -o CMakeFiles/casse-briques.dir/src/barre.c.o -c /home/nathan/Documents/cassebriques/casse-briques/src/barre.c",
+  "file": "/home/nathan/Documents/cassebriques/casse-briques/src/barre.c"
+},
+{
+  "directory": "/home/nathan/Documents/cassebriques/casse-briques/build",
+  "command": "/usr/bin/gcc-12  -I/usr/include/SDL2 -I/usr/include/freetype2 -I/usr/include/libpng16 -I/usr/include/harfbuzz -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -g -o CMakeFiles/casse-briques.dir/src/brique.c.o -c /home/nathan/Documents/cassebriques/casse-briques/src/brique.c",
+  "file": "/home/nathan/Documents/cassebriques/casse-briques/src/brique.c"
+},
+{
+  "directory": "/home/nathan/Documents/cassebriques/casse-briques/build",
+  "command": "/usr/bin/gcc-12  -I/usr/include/SDL2 -I/usr/include/freetype2 -I/usr/include/libpng16 -I/usr/include/harfbuzz -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -g -o CMakeFiles/casse-briques.dir/src/main.c.o -c /home/nathan/Documents/cassebriques/casse-briques/src/main.c",
+  "file": "/home/nathan/Documents/cassebriques/casse-briques/src/main.c"
+},
+{
+  "directory": "/home/nathan/Documents/cassebriques/casse-briques/build",
+  "command": "/usr/bin/gcc-12  -I/usr/include/SDL2 -I/usr/include/freetype2 -I/usr/include/libpng16 -I/usr/include/harfbuzz -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -g -o CMakeFiles/casse-briques.dir/src/powerup_objet.c.o -c /home/nathan/Documents/cassebriques/casse-briques/src/powerup_objet.c",
+  "file": "/home/nathan/Documents/cassebriques/casse-briques/src/powerup_objet.c"
+},
+{
+  "directory": "/home/nathan/Documents/cassebriques/casse-briques/build",
+  "command": "/usr/bin/gcc-12  -I/usr/include/SDL2 -I/usr/include/freetype2 -I/usr/include/libpng16 -I/usr/include/harfbuzz -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -g -o CMakeFiles/casse-briques.dir/src/powerup_pouvoir.c.o -c /home/nathan/Documents/cassebriques/casse-briques/src/powerup_pouvoir.c",
+  "file": "/home/nathan/Documents/cassebriques/casse-briques/src/powerup_pouvoir.c"
+},
+{
+  "directory": "/home/nathan/Documents/cassebriques/casse-briques/build",
+  "command": "/usr/bin/gcc-12  -I/usr/include/SDL2 -I/usr/include/freetype2 -I/usr/include/libpng16 -I/usr/include/harfbuzz -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -g -o CMakeFiles/casse-briques.dir/src/score.c.o -c /home/nathan/Documents/cassebriques/casse-briques/src/score.c",
+  "file": "/home/nathan/Documents/cassebriques/casse-briques/src/score.c"
+},
+{
+  "directory": "/home/nathan/Documents/cassebriques/casse-briques/build",
+  "command": "/usr/bin/gcc-12  -I/usr/include/SDL2 -I/usr/include/freetype2 -I/usr/include/libpng16 -I/usr/include/harfbuzz -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -g -o CMakeFiles/casse-briques.dir/src/tableau.c.o -c /home/nathan/Documents/cassebriques/casse-briques/src/tableau.c",
+  "file": "/home/nathan/Documents/cassebriques/casse-briques/src/tableau.c"
+},
+{
+  "directory": "/home/nathan/Documents/cassebriques/casse-briques/build",
+  "command": "/usr/bin/gcc-12  -I/usr/include/SDL2 -I/usr/include/freetype2 -I/usr/include/libpng16 -I/usr/include/harfbuzz -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -g -o CMakeFiles/casse-briques.dir/src/vies.c.o -c /home/nathan/Documents/cassebriques/casse-briques/src/vies.c",
+  "file": "/home/nathan/Documents/cassebriques/casse-briques/src/vies.c"
+}
+]

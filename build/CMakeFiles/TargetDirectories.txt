@@ -1,0 +1,3 @@
+/home/nathan/Documents/cassebriques/casse-briques/build/CMakeFiles/casse-briques.dir
+/home/nathan/Documents/cassebriques/casse-briques/build/CMakeFiles/edit_cache.dir
+/home/nathan/Documents/cassebriques/casse-briques/build/CMakeFiles/rebuild_cache.dir
